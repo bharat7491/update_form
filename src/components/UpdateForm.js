@@ -91,6 +91,7 @@ export const UpdateForm = () => {
   const [emailBtn, setemailBtn] = useState(false);
   const [phoneBtn, setPhoneBtn] = useState(false);
   const [inputList, setInputList] = useState([]);
+  const [date, setdate] = useState("2021-05-03");
 
   console.log(dropDownData);
   console.log(formData);
@@ -104,6 +105,20 @@ export const UpdateForm = () => {
     setInputList({ ...inputList, [name]: value });
   };
   console.log("Input List", inputList);
+
+  const handleAddressChange = (e) => {
+    const { name, value } = e.target;
+    const arr = { ...inputList };
+    arr.addresses[0][name] = value;
+    setInputList(arr);
+    /*  setNewData({
+      ...newData,
+      addresses: {
+        ...newData.addresses,
+        [name]: value,
+      },
+    }); */
+  };
   return (
     <div style={{ marginTop: "50px" }}>
       <form>
@@ -142,15 +157,18 @@ export const UpdateForm = () => {
               defaultValue={formData.addresses[0].line1}
               className="threeColTxt"
               helperText="Unit / Townhouse number"
+              onChange={handleAddressChange}
             />
 
             <TextField
               id="standard-helperText"
               label="Address line 2"
+              name="line2"
               defaultValue={formData.addresses[0].line2}
               className="threeColTxt"
               style={{ marginLeft: "50px" }}
               // helperText="Some important text"
+              onChange={handleAddressChange}
             />
           </div>
           <div>
@@ -158,10 +176,12 @@ export const UpdateForm = () => {
             <TextField
               id="standard-helperText"
               label="Address line 3"
+              name="line3"
               defaultValue={formData.addresses[0].line3}
               required="true"
               className="twoColTxt"
               // helperText="Some important text"
+              onChange={handleAddressChange}
             />
           </div>
           <div>
@@ -169,10 +189,11 @@ export const UpdateForm = () => {
 
             <TextField
               id="standard-helperText"
+              name="suburb"
               label="Suburb"
               defaultValue={formData.addresses[0].suburb}
               className="threeColTxt"
-
+              onChange={handleAddressChange}
               // helperText="Some important text"
             />
 
@@ -185,6 +206,7 @@ export const UpdateForm = () => {
                   id: "uncontrolled-native",
                 }}
                 className="threeColList"
+                onChange={handleAddressChange}
               >
                 {dropDownData.state.map((state) => (
                   <option value={state.name}>{state.name}</option>
@@ -195,9 +217,10 @@ export const UpdateForm = () => {
             <TextField
               id="standard-helperText"
               label="Postcode"
+              name="postcode"
               defaultValue={formData.addresses[0].postcode}
               className="threeColTxt"
-
+              onChange={handleAddressChange}
               // helperText="Some important text"
             />
           </div>
